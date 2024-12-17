@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
+    <!-- Librería de iconos 1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <!-- Librería de iconos 2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Librería de iconos 3 -->
+
+    <link rel="stylesheet" href="../css/productoventa.css">
+    <link rel="stylesheet" href="../css/nav-search-login.css">
+    <link rel="stylesheet" href="../css/Variables.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/loading.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="../css/ticker.css">
+    <link rel="stylesheet" href="../css/stylepunto.css">
+
+    <title>Objetivos de desarrollo sostenible</title>
+</head>
+
+<body>
+    <!-- para usarlo-->
+    <div id="contadorPuntos">🪙Puntos: 0</div>
+
+    <div class="box-loading" id="loadingPrincipal">
+        <div class="loading">
+            <div class="loading1"></div>
+            <div class="loading2"></div>
+        </div>
+    </div>
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo"><img src="../assets/img/logo/EcoPiensoLogo.png" alt="Logo"></a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="../index.html" class="nav__link">Inicio</a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="historia.html" class="nav__link">Historia</a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="contactanos.html" class="nav__link">Contactanos</a>
+                        <ul class="menu-vertical">
+                            <li><a href="quienessomos.html">¿Quienes Somos?</a></li>
+                            <li><a href="impacto.html">¿Que impacto queremos crear?</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="producto.html" class="nav__link">Nuestro Producto</a>
+                        <ul class="menu-vertical">
+                            <li><a href="productoventa.html">Adquiere Nuestros Productos</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="ods.html" class="nav__link">ODS</a>
+                    </li>
+
+                </ul>
+
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+
+            <div class="nav__actions">
+
+                <i class="ri-search-line nav__search" id="search-btn"></i>
+
+                <i class="ri-user-line nav__login" id="login-btn"></i>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+            <!-- Contenedor del carrito -->
+        <div class="cart-container">
+            <button id="cartButton" onclick="mostrarCarrito()">
+                <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
+            </button>
+        </div>
+        </nav>
+        
+    </header>
+
+    <div id="messageTicker" class="message-ticker">
+        <p id="tickerText"> “Compromiso con un consumo responsable y un futuro más limpio" </p>
+    </div>
+
+
+
+
+    <!-- Botón para abrir el modal -->
+    <button id="abrirModal">Selecciona un Método de Pago</button>
+
+    <!-- Modal -->
+    <div id="modalCompra" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h2>Elige tu método de pago</h2>
+                <button class="cerrar-modal" onclick="cerrarModalCompra()">X</button>
+            </div>
+            <div class="modal-body">
+                <button onclick="seleccionarMetodo('Transferencia Bancaria')">Transferencia Bancaria</button>
+                <button onclick="seleccionarMetodo('Pago en Efectivo')">Pago en Efectivo</button>
+                <button onclick="seleccionarMetodo('Yape')">Yape</button>
+                <button onclick="seleccionarMetodo('Plin')">Plin</button>
+            </div>
+            <div id="detallesPago" class="detalles-pago">
+                <!-- Los detalles de pago y las imágenes se cargarán aquí -->
+                
+                <!-- Detalles por defecto, si no se selecciona ningún pago -->
+                <div id="detalles-transferencia" class="detalles-opcion" style="display:none;">
+                    <h3>Transferencia Bancaria</h3>
+                    <p>Por favor, realiza tu pago a la siguiente cuenta:</p>
+                    <p><strong>Banco:</strong> Interbank - Victor Raul Torreblanca Franco</p>
+                    <p><strong>Cuenta:</strong> 8983312268070</p>
+                    <p><strong>CCI:</strong> 00389801331226807044</p>
+                    <p>Por favor, Luego de generar el pago enviar una captura a nuestro whatsapp</p>
+                </div>
+
+                <div id="detalles-efectivo" class="detalles-opcion" style="display:none;">
+                    <h3>Pago en Efectivo</h3>
+                    <p>Tu código de recojo es: <strong>ABCD1234</strong></p>
+                    <p>Por favor, lleva este código al punto de pago más cercano.</p>
+                </div>
+
+                <div id="detalles-yape" class="detalles-opcion" style="display:none;">
+                    <h3>Yape</h3>
+                    <p>Escanea el siguiente código QR para realizar el pago:</p>
+                    <div class="imagen-centro">
+                        <img src="../assets/img/qr/yapeqr.jpg" alt="QR Yape" width="200">
+                    </div>
+                    <p>Por favor, Luego de generar el pago enviar una captura a nuestro whatsapp</p>
+                </div>
+                
+                <div id="detalles-plin" class="detalles-opcion" style="display:none;">
+                    <h3>Plin</h3>
+                    <p>Escanea el siguiente código QR para realizar el pago:</p>
+                    <div class="imagen-centro">
+                        <img src="../assets/img/qr/plinqr.jpg" alt="QR Plin" width="200">
+                    </div>
+                    <p>Por favor, Luego de generar el pago enviar una captura a nuestro whatsapp</p>
+                </div>                
+
+                
+                
+            </div>
+        </div>
+    </div>
+    
+    <section class="social-share">
+        <h3>Escribenos:</h3>
+        <div class="social-buttons">
+            <a href="https://www.facebook.com/profile.php?id=61569236201502"
+                target="_blank" class="social-button facebook">
+                <i class="ri-facebook-fill"></i>
+            </a>
+            <a href="#" 
+                onclick="enviarPedidoWhatsApp()" 
+                class="social-button whatsapp">
+                <i class="ri-whatsapp-fill"></i>
+            </a>
+
+        </div>
+    </section>
+
+    <div class="notification" id="notification">
+        ¡URL copiada al portapapeles!
+    </div>
+    
+
+
+
+
+
+<!-- Modal del carrito -->
+<div id="carritoModal" class="modal">
+    <div class="modal-contenido">
+        <div class="modal-header">
+            <h2>Carrito de Compras</h2>
+            <button class="cerrar-modal" onclick="cerrarCarrito()">
+                <i class="ri-close-line"></i> <!-- Ícono de cerrar -->
+            </button>
+        </div>
+        <div id="carritoProductos">
+            <!-- Aquí se mostrarán los productos en el carrito -->
+        </div>
+        <div class="modal-footer">
+        <span id="totalCarrito">0.00</span>
+            <div class="acciones">
+                <button class="boton-limpiar" onclick="limpiarCarrito()">
+                    <i class="fas fa-trash-alt"></i> Limpiar Carrito
+                </button>
+                <button class="boton-comprar" onclick="comprar()">
+                    <i class="fas fa-check-circle"></i> Comprar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="search" id="search">
+        <form action="" class="search__form">
+            <i class="ri-search-line search__icon"></i>
+            <input type="search" placeholder="¿Qué estás buscando?" class="search__input">
+        </form>
+
+        <i class="ri-close-line search__close" id="search-close"></i>
+    </div>
+
+    <div class="login" id="login">
+        <form action="" class="login__form">
+            <h2 class="login__title">Iniciar Sesion</h2>
+
+            <div class="login__group">
+                <div>
+                    <label for="email" class="login__label">Correo</label>
+                    <input type="email" placeholder="Escribe tu correo electrónico" id="email" class="login__input">
+                </div>
+
+                <div>
+                    <label for="password" class="login__label">Contraseña</label>
+                    <input type="password" placeholder="Introduce tu contraseña" id="password" class="login__input">
+                </div>
+            </div>
+
+            <div>
+                <p class="login__signup">
+                    ¿No tienes una cuenta? <a href="register.html">Registrarse</a>
+                </p>
+
+                <a href="recover.html" class="login__forgot">
+                    Olvidaste tu contraseña
+                </a>
+
+                <button type="submit" class="login__button">Iniciar Sesión</button>
+            </div>
+        </form>
+
+        <i class="ri-close-line login__close" id="login-close"></i>
+    </div>
+
+    <section class="productos">
+        <div class="contenido-principal">
+            <h1>Nuestros Productos</h1>
+        </div>
+    
+        
+        <div class="productos-grid">
+
+            <div class="producto">
+                <img src="../assets/img/bolsa/ecopienso.jpg" alt="producto 1">
+                <div class="nombre-producto">
+                    EcoPienso Nutritivo para Aves (Pollos y Gallinas)
+                </div>
+                <p class="descripcion">
+                    EcoPienso es un alimento balanceado y sostenible elaborado a partir de productos reciclados y desechos de alimentos no aptos para consumo humano. Ideal para pollos y gallinas, este pienso fomenta un crecimiento saludable y una mejor calidad de vida para tus aves.
+                </p>
+                <span class="precio">
+                    S/. 3.50 / Bolsa de 1 kg
+                </span>
+                <button onclick="agregarAlCarrito('EcoPienso Nutritivo para Aves 1kg', 3.50)">
+                    Agregar al carrito
+                </button>
+            </div>            
+    
+            <div class="producto">
+                <img src="../assets/img/bolsa/ecopienso.jpg" alt="producto 2">
+                <div class="nombre-producto">
+                    EcoPienso Nutritivo para Aves (Pollos y Gallinas)
+                </div>
+                <p class="descripcion">
+                    EcoPienso es un alimento balanceado y sostenible elaborado a partir de productos reciclados y desechos de alimentos no aptos para consumo humano. Ideal para pollos y gallinas, este pienso fomenta un crecimiento saludable y una mejor calidad de vida para tus aves.
+                </p>
+                <span class="precio">
+                    S/. 9.00 / Bolsa de 3 kg
+                </span>
+                <button onclick="agregarAlCarrito('EcoPienso Nutritivo para Aves 3kg', 9.00)">
+                    Agregar al carrito
+                </button>
+            </div>
+            
+            <div class="producto">
+                <img src="../assets/img/bolsa/ecopienso.jpg" alt="producto 3">
+                <div class="nombre-producto">
+                    EcoPienso Nutritivo para Aves (Pollos y Gallinas)
+                </div>
+                <p class="descripcion">
+                    EcoPienso es un alimento balanceado y sostenible elaborado a partir de productos reciclados y desechos de alimentos no aptos para consumo humano. Ideal para pollos y gallinas, este pienso fomenta un crecimiento saludable y una mejor calidad de vida para tus aves.
+                </p>
+                <span class="precio">
+                    S/. 15.00 / Bolsa de 5 kg
+                </span>
+                <button onclick="agregarAlCarrito('EcoPienso Nutritivo para Aves 5kg', 15.00)">
+                    Agregar al carrito
+                </button>
+            </div>
+            
+            <div class="producto">
+                <img src="../assets/img/bolsa/ecopienso.jpg" alt="EcoPienso para aves">
+                <div class="nombre-producto">
+                    EcoPienso Nutritivo para Aves (Pollos y Gallinas)
+                </div>
+                <p class="descripcion">
+                    EcoPienso es un alimento balanceado y sostenible elaborado a partir de productos reciclados y desechos de alimentos no aptos para consumo humano. Ideal para pollos y gallinas, este pienso fomenta un crecimiento saludable y una mejor calidad de vida para tus aves.
+                </p>
+                <span class="precio">
+                    S/. 17.50 / Bolsa de 7 kg
+                </span>
+                <button onclick="agregarAlCarrito('EcoPienso Nutritivo para Aves 7kg', 17.50)">
+                    Agregar al carrito
+                </button>
+            </div>
+            
+            <div class="producto">
+                <img src="../assets/img/bolsa/ecopienso.jpg" alt="EcoPienso para aves">
+                <div class="nombre-producto">
+                    EcoPienso Nutritivo para Aves (Pollos y Gallinas)
+                </div>
+                <p class="descripcion">
+                    EcoPienso es un alimento balanceado y sostenible elaborado a partir de productos reciclados y desechos de alimentos no aptos para consumo humano. Ideal para pollos y gallinas, este pienso fomenta un crecimiento saludable y una mejor calidad de vida para tus aves.
+                </p>
+                <span class="precio">
+                    S/. 27.50 / Bolsa de 10 kg
+                </span>
+                <button onclick="agregarAlCarrito('EcoPienso Nutritivo para Aves 10kg', 27.50)">
+                    Agregar al carrito
+                </button>
+            </div>
+            
+            <div class="producto">
+                <img src="../assets/img/bolsa/ecopienso.jpg" alt="EcoPienso para aves">
+                <div class="nombre-producto">
+                    EcoPienso Nutritivo para Aves (Pollos y Gallinas)
+                </div>
+                <p class="descripcion">
+                    EcoPienso es un alimento balanceado y sostenible elaborado a partir de productos reciclados y desechos de alimentos no aptos para consumo humano. Ideal para pollos y gallinas, este pienso fomenta un crecimiento saludable y una mejor calidad de vida para tus aves.
+                </p>
+                <span class="precio">
+                    S/. 40.00 / Bolsa de 15 kg
+                </span>
+                <button onclick="agregarAlCarrito('EcoPienso Nutritivo para Aves 15kg', 40.00)">
+                    Agregar al carrito
+                </button>
+            </div>
+            
+            <div class="producto">
+                <img src="../assets/img/bolsa/ecopienso.jpg" alt="EcoPienso para aves">
+                <div class="nombre-producto">
+                    EcoPienso Nutritivo para Aves (Pollos y Gallinas)
+                </div>
+                <p class="descripcion">
+                    EcoPienso es un alimento balanceado y sostenible elaborado a partir de productos reciclados y desechos de alimentos no aptos para consumo humano. Ideal para pollos y gallinas, este pienso fomenta un crecimiento saludable y una mejor calidad de vida para tus aves.
+                </p>
+                <span class="precio">
+                    S/. 45.50/ Bolsa de 20 kg
+                </span>
+                <button onclick="agregarAlCarrito('EcoPienso Nutritivo para Aves 20kg', 45.50)">
+                    Agregar al carrito
+                </button>
+            </div>
+            
+        <div class="producto">
+            <img src="../assets/img/bolsa/ecopienso.jpg" alt="EcoPienso para aves">
+            <div class="nombre-producto">
+                EcoPienso Nutritivo para Aves (Pollos y Gallinas)
+            </div>
+            <p class="descripcion">
+                EcoPienso es un alimento balanceado y sostenible elaborado a partir de productos reciclados y desechos de alimentos no aptos para consumo humano. Ideal para pollos y gallinas, este pienso fomenta un crecimiento saludable y una mejor calidad de vida para tus aves.
+            </p>
+            <span class="precio">
+                S/. 52.50 / Bolsa de 25 kg
+            </span>
+            <button onclick="agregarAlCarrito('EcoPienso Nutritivo para Aves 25kg', 52.50)">
+                Agregar al carrito
+            </button>
+        </div>
+
+
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-row">
+                <div class="footer-links">
+                    <h4>
+                        ODS
+                    </h4>
+                    <ul>
+                        <li>
+                            <a href="index.html">
+                                Inicio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="html/historia.html">
+                                Historia
+                            </a>
+                        </li>
+                        <li>
+                            <a href="html/contactanos.html">
+                                Contactanos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="html/producto.html">
+                                Producto
+                            </a>
+                        </li>
+                        <li>
+                            <a href="html/ods.html">
+                                ODS
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>
+                        ODS
+                    </h4>
+                    <ul>
+                        <li>
+                            <a href="https://www.un.org/sustainabledevelopment/es/sustainable-consumption-production/">
+                                Sobre el ODS
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://upload.wikimedia.org/wikipedia/commons/3/39/Sustainable_Development_Goal-es-06.jpg">
+                                Logo de la ODS
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>
+                        Siguenos
+                    </h4>
+                    <div class="social-link">
+                        <a href="https://www.facebook.com/tecnologiaVG" class="fab fa-facebook-f" target="_blank"
+                            title="Compartir en Facebook">
+                        </a>
+
+                        <a href="https://www.instagram.com/valle_grande_oficial?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                            class="fab fa-instagram" target="_blank" title="Ir a Instagram">
+                        </a>
+
+                        <a href="https://www.youtube.com/@vallegrande_" class="fab fa-youtube" target="_blank"
+                            title="Ir a Youtube">
+                        </a>
+
+                        <a href="https://pe.linkedin.com/company/tecnologiavg" class="fab fa-linkedin" target="_blank"
+                            title="Ir a Linkedin">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/FB-Mostrar-OCultar.js"></script>
+    <script src="../js/FB-nav-search-login.js"></script>
+    <script src="..//script-index.js"></script>
+    <script src="../js/loading.js"></script>
+    <script src="../js/calendario.js"></script>
+    <script src="../js/animation.js"></script>
+    <script src="../js/FD-compartir.js"></script>
+    <script src="../js/FS-info+.js"></script>
+    <script src="../js/venta.js"></script>
+    <script src="../js/ticker.js"></script>
+    <script src="../js/puntos.js" defer></script>  <!-- Lógica para puntos -->
+    <script src="../js/mostrar.js" defer></script>  <!-- Lógica para mostrar puntos -->
+
+</body>
+
+</html>
